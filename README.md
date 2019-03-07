@@ -1,3 +1,2 @@
 # Prog-II
-hihihihi
-opa
+piske viado
