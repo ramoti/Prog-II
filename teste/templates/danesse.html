@@ -6,6 +6,10 @@
  </head>
  <body>
         <b>DEU CERTO</b>
-        <img src = "/static/gato.jpeg"> </img>
+        {% for usuario in lista: %}
+            {{usuario.nome}}
+            {{usuario.rua}}
+            {{usuario.numero}}
+        {% endfor %}
  </body>
  </html>

@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 app = Flask (__name__)
+from opa import Pessoa
 
 @app.route ("/")
 def trelar ():
@@ -7,6 +8,8 @@ def trelar ():
 
 @app.route ("/danesse")
 def tralar ():
-    return render_template ("danesse.html")
+    pessoas = [Pessoa ("Mariana" , "araçai" , "1234-1234"), Pessoa ("Lucas" , "patos", "5443-7346")]  
+    return render_template ("danesse.html", lista = pessoas)
 
-app.run(host="0.0.0.0")
+
+app.run(debug = True)
