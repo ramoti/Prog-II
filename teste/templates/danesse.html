@@ -12,6 +12,10 @@
             {{usuario.numero}}
         {% endfor %}
 
+        {%for usuario in lista: %}
+             {{usuario.nome}}  {{usuario.endereco}}  {{usuario.telefone}}
+            <a href=/excluir_pessoa?nome={{usuario.nome}}> excluir </a>
+        {%endfor%}        
         
         
  </body>

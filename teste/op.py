@@ -7,10 +7,12 @@ pessoas = [Pessoa ("Mariana" , "araçai" , "1234-1234"), Pessoa ("Lucas", "patos
 
 @app.route ("/")
 def listar_pessoa ():
+
     return render_template ("inicio.html" , lista = pessoas)
 
 @app.route ("/add_pessoa")
 def add ():
+
     nome = request.args.get("nome")
     endereco = request.args.get ("endereco")
     telefone = request.args.get ("telefone")
@@ -19,6 +21,16 @@ def add ():
     r = "os dados recebidos foram"
     r += nome + "," + endereco + "," + telefone
     return render_template ("nova.html", mensagem = "pessoa inserida")
+
+@app.route ("/excluir_pessoa")
+def excluir ():
+    nome = request.args.get ("nome")
+    for pessoa in pessoas :
+        if nome == pessoa.nome :
+            pessoas.remove (pessoa)
+            break
+    return render_template ("velha.html", mensagem = "pessoa excluida")
+
 
 @app.route ("/form_add_pessoa")
 def form ():
