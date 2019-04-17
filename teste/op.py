@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 app = Flask (__name__)
 from opa import Pessoa
 
@@ -51,8 +51,23 @@ def editar_form ():
     nome = request.args.get ("nome")
     cpf = request.args.get ("cpf")
     for i in range (len(pessoas)):
-        if nome == pessoa.nome or cpf == pessoa.cpf:
-            pass
+        if nome == pessoas[i].nome or cpf == pessoas[i].cpf:
+            return render_template ("editar.html", person = pessoas [i] )
+        else :
+            return "pessoa n encontrada"
 
+@app.route ("/editar")            
+def editar_pessoa ():
+
+    nome = request.args.get ("nome")
+    endereco = request.args.get ("endereco")
+    telefone = request.args.get ("telefone")
+    cpf = request.args.get ("cpf")
+    for i in range(len(pessoas)):
+        if pessoas[i].cpf == cpf :
+            nova_pessoa = Pessoa (nome, endereco, telefone, cpf)
+            pessoas [i] = nova_pessoa
+            break
+    return redirect ("/")
 
 app.run(debug = True)
