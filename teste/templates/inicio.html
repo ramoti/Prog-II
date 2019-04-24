@@ -5,7 +5,15 @@
      <title>Document</title>
  </head>
  <body>
-        <b>oi</b>
+        <b>LOGAR</b>
+        {% if session ["usuario"]  %}
+            Bem vindo {{session ["usuário"] }}
+            <a href = "/logout"> sair</a>
+
+        {% else %}
+            <a href= "/form_login" > Fazer login"
+            {%endif%}    
+
         <a href="/danesse"> vem aqui </a>
  </body>
  </html>

@@ -7,7 +7,7 @@ pessoas = [Pessoa ("Mariana" , "araçai" , "1234-1234", "456.456.456-35"), Pesso
 
 @app.route ("/")
 def listar_pessoa ():
-
+ 
     return render_template ("inicio.html" , lista = pessoas)
 
 @app.route ("/add_pessoa")
@@ -70,4 +70,10 @@ def editar_pessoa ():
             break
     return redirect ("/")
 
+@app.route ("/form_login")
+def form_login ():
+    
+    return render_template ("form_login.html")
+
 app.run(debug = True)
+    
