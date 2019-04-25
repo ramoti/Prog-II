@@ -2,10 +2,14 @@
 <html>
     <head>
         <title >Listagem de Pessoas </title >
-    </head>
+        </head>
     <body>
+        {% if session['mensagem'] %}
+            {{ session['mensagem'] }}
+
+        {% endif %}
         {% if session["usuario"] %}
-        <a href= "/form_incluir_pessoa" >Incluir</a> 
+        <a href= "/form_add_pessoa" >Incluir</a> 
         <a href = "/logout"> logout </a>
         {% else %} 
             <a href="/form_login">Logar</a> <br><br>
@@ -14,8 +18,8 @@
         {% for pessoa in lista : %}
         {{ pessoa.nome }} | {{ pessoa.endereco }} | {{ pessoa. telefone }}
         {% if session["usuario"] %}
-        <a href= "/excluir_pessoa" ?nome={{ pessoa.nome }}>Excluir</a>
-        <a href= "/form_alterar_pessoa" ?nome={{ pessoa.nome }}>Alterar</a><br> 
+        <a href= "/excluir_pessoa?nome={{ pessoa.nome }}">Excluir</a>
+        <a href= "/form_editar?nome={{ pessoa.nome }}">Alterar</a><br> 
         {% endif %}
         {% endfor %}
 

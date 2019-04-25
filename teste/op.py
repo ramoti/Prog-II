@@ -31,8 +31,9 @@ def excluir ():
     for pessoa in pessoas :
         if nome == pessoa.nome or cpf == pessoa.cpf :
             pessoas.remove (pessoa)
-            break
-    return render_template ("velha.html", mensagem = "pessoa excluida")
+            session['mensagem']= "Pessoa excluída"
+            return redirect("/")
+    return "erro ao excluir, não achei:"
 
 
 @app.route ("/form_add_pessoa")
@@ -52,9 +53,8 @@ def editar_form ():
     cpf = request.args.get ("cpf")
     for i in range (len(pessoas)):
         if nome == pessoas[i].nome or cpf == pessoas[i].cpf:
-            return render_template ("editar.html", person = pessoas [i] )
-        else :
-            return "pessoa n encontrada"
+            return render_template ("editar.html", person = pessoas[i] )
+    return "pessoa n encontrada"
 
 @app.route ("/editar")            
 def editar_pessoa ():
@@ -95,5 +95,5 @@ def logout ():
     return redirect ("/")
 
 app.config["SECRET_KEY"] = "51726.0"
-app.run(debug = True)
+app.run()
     
