@@ -1,19 +1,23 @@
 <!DOCTYPE html>
- <html>
- <head>
-     <meta charset="UTF-8"/>
-     <title>Document</title>
- </head>
- <body>
-        <b>LOGAR</b>
-        {% if session ["usuario"]  %}
-            Bem vindo {{session ["usuário"] }}
-            <a href = "/logout"> sair</a>
+<html>
+    <head>
+        <title >Listagem de Pessoas </title >
+    </head>
+    <body>
+        {% if session["usuario"] %}
+        <a href= "/form_incluir_pessoa" >Incluir</a> 
+        <a href = "/logout"> logout </a>
+        {% else %} 
+            <a href="/form_login">Logar</a> <br><br>
+        {% endif %}
 
-        {% else %}
-            <a href= "/form_login" > Fazer login"
-            {%endif%}    
+        {% for pessoa in lista : %}
+        {{ pessoa.nome }} | {{ pessoa.endereco }} | {{ pessoa. telefone }}
+        {% if session["usuario"] %}
+        <a href= "/excluir_pessoa" ?nome={{ pessoa.nome }}>Excluir</a>
+        <a href= "/form_alterar_pessoa" ?nome={{ pessoa.nome }}>Alterar</a><br> 
+        {% endif %}
+        {% endfor %}
 
-        <a href="/danesse"> vem aqui </a>
  </body>
  </html>

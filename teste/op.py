@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 app = Flask (__name__)
 from opa import Pessoa
 
@@ -21,7 +21,7 @@ def add ():
     pessoas.append (nova_pessoa)
     r = "os dados recebidos foram"
     r += nome + "," + endereco + "," + telefone
-    return render_template ("nova.html", mensagem = "pessoa inserida")
+    return redirect ("/")
 
 @app.route ("/excluir_pessoa")
 def excluir ():
@@ -75,5 +75,25 @@ def form_login ():
     
     return render_template ("form_login.html")
 
+@app.route ("/login", methods = ["POST"])
+def login ():
+
+    login = request.form ["login"]
+    senha = request.form ["senha"]
+
+    if login !=  None and senha !=  None:
+        session["usuario"] = login
+        return redirect ("/")
+
+    else :
+        return "login ou senha inválidos"
+
+@app.route ("/logout")
+def logout ():
+
+    session.pop ("usuario")
+    return redirect ("/")
+
+app.config["SECRET_KEY"] = "51726.0"
 app.run(debug = True)
     
