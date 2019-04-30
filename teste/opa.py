@@ -1,9 +1,9 @@
 class Pessoa ():
     
-    def __init__ (self, nome, rua, numero, cpf):
+    def __init__ (self, nome, endereco, telefone, cpf):
         self.nome = nome
-        self.rua = rua
-        self.numero = numero
+        self.endereco = endereco
+        self.telefone = telefone
         self.cpf = cpf
 
 if __name__ == "__main__":

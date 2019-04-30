@@ -31,7 +31,6 @@ def excluir ():
     for pessoa in pessoas :
         if nome == pessoa.nome or cpf == pessoa.cpf :
             pessoas.remove (pessoa)
-            session['mensagem']= "Pessoa excluída"
             return redirect("/")
     return "erro ao excluir, não achei:"
 
@@ -81,7 +80,7 @@ def login ():
     login = request.form ["login"]
     senha = request.form ["senha"]
 
-    if login !=  None and senha !=  None:
+    if login and senha:
         session["usuario"] = login
         return redirect ("/")
 
@@ -95,5 +94,5 @@ def logout ():
     return redirect ("/")
 
 app.config["SECRET_KEY"] = "51726.0"
-app.run()
+app.run(debug= True)
     
