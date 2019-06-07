@@ -1,27 +1,37 @@
-class Pi():
+from peewee import *
+import os
+
+db = peewee.SqliteDatabase ('Pizada.db')
+arq = 'pode_cre.db'
+
+
+class Pi(BaseModel):
     def __init__(self, titulo, ano, nomes_alunos, nome_professor):
         self.titulo = titulo
         self.ano = ano
         self.nomes_alunos = nomes_alunos
         self.professores = nome_professor
 
-class Aluno():
+class Aluno(BaseModel):
     def __init__(self, turma, nome, idade):
         self.turma = turma
         self.nome = nome
         self.idade = idade
 
-class Professor():
+class Professor(BaseModel):
     def __init__(self, nome, idade, area_atua):
         self.nome = nome
         self.idade = idade
         self.area_atua= area_atua
 
-class Area():
+class Area(BaseModel):
     def __init__(self, periodico, evento):
         self.periodico = periodico
         self.evento = evento
 
+class BaseModel (Model):
+    class meta :
+        database = db
 
 if __name__=="__main__":
     alunos=[Aluno("302 INFO", "Piske", 18),Aluno("302 INFO", "Ravi", 18)]
