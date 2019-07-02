@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, redirect, session
 app = Flask (__name__)
 from peewee import *
 
-db = SqliteDatabase ('lista_pessoa.db')
+db = SqliteDatabase ('./Prog-II/teste/lista_pessoa.db')
 
 class Pessoa (Model):
 
     nome = CharField ()
-    enredeco = CharField ()
+    endereco = CharField ()
     telefone = CharField ()
     cpf = CharField ()
 
@@ -30,7 +30,7 @@ except OperationalError as error :
 @app.route ("/")
 def listar_pessoa ():
  
-    return render_template ("inicio.html" , pessoas = lista)
+    return render_template ("inicio.html" , lista = Pessoa.select())
 
 @app.route ("/add_pessoa")
 def add ():
@@ -39,8 +39,7 @@ def add ():
     endereco = request.args.get ("endereco")
     telefone = request.args.get ("telefone")
     cpf = request.args.get ("cpf")
-    nova_pessoa = Pessoa (nome, endereco, telefone, cpf)
-    lista.append (nova_pessoa)
+    nova_pessoa = Pessoa.create (nome = nome, endereco = endereco, telefone = telefone, cpf = cpf)
     r = "os dados recebidos foram"
     r += nome + "," + endereco + "," + telefone
     return redirect ("/")
@@ -49,13 +48,10 @@ def add ():
 @app.route ("/excluir_pessoa")
 def excluir ():
 
-    nome = request.args.get ("nome")
-    cpf = request.args.get ("cpf")
-    for pessoa in lista :
-        if nome == pessoa.nome or cpf == pessoa.cpf :
-            lista.remove (pessoa)
-            return redirect("/")
-    return "erro ao excluir, não achei:"
+    id = request.args.get ("id")
+    Pessoa.delete_by_id (id)
+
+    return redirect("/")
 
 
 @app.route ("/form_add_pessoa")
@@ -71,25 +67,24 @@ def tralar ():
 @app.route ("/form_editar") 
 def editar_form ():
 
-    nome = request.args.get ("nome")
-    cpf = request.args.get ("cpf")
-    for i in range (len(lista)):
-        if nome == lista[i].nome or cpf == lista[i].cpf:
-            return render_template ("editar.html", person = lista[i] )
-    return "pessoa n encontrada"
-
+    id = request.args.get ('id')
+    pessoa_a_ser_alterada = Pessoa.get_by_id (id)
+    return render_template ("editar.html", person = pessoa_a_ser_alterada)
+    
 @app.route ("/editar")            
 def editar_pessoa ():
 
+    id = request.args.get ("id")
     nome = request.args.get ("nome")
     endereco = request.args.get ("endereco")
     telefone = request.args.get ("telefone")
     cpf = request.args.get ("cpf")
-    for i in range(len(lista)):
-        if lista[i].cpf == cpf :
-            nova_pessoa = Pessoa (nome, endereco, telefone, cpf)
-            lista [i] = nova_pessoa
-            break
+    pessoa_alterada = Pessoa.get_by_id (id)
+    pessoa_alterada.nome = nome
+    pessoa_alterada.endereco = endereco
+    pessoa_alterada.telefone = telefone
+    pessoa_alterada.cpf = cpf
+    pessoa_alterada.save()
     return redirect ("/")
 
 @app.route ("/form_login")

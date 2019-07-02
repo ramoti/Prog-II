@@ -10,9 +10,10 @@
        
         <form action="/editar">
             
-            nome : <input type = "text" name = nome value = {{person.nome}}>
-            endereco : <input type = "text" endereco = nome value = {{person.endereco}}>
-            telefone : <input type = "text" telefone = nome value = {{person.telefone}}>
+            <input type = "hidden" name = 'id' value = '{{person.id}}'>
+            nome : <input type = "text" name = nome value = '{{person.nome}}'>
+            endereco : <input type = "text" name = "endereco" value = "{{person.endereco}}">
+            telefone : <input type = "text" name = "telefone" value = "{{person.telefone}}">
             cpf : <input type = "text" name = cpf value = {{person.cpf}}>
             <input type="submit" value = "confimar">         
 

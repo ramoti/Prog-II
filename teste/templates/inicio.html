@@ -14,8 +14,8 @@
         {% for pessoa in lista : %}
         {{ pessoa.nome }} | {{ pessoa.rua }} | {{ pessoa.numero }}
         {% if session["usuario"] %}
-        <a href= "/excluir_pessoa?nome={{ pessoa.nome }}">Excluir</a>
-        <a href= "/form_editar?nome={{ pessoa.nome }}">Alterar</a><br> 
+        <a href= "/excluir_pessoa?id={{ pessoa.id }}">Excluir</a>
+        <a href= "/form_editar?id={{ pessoa.id }}">Alterar</a><br> 
         {% endif %}
         <br>
         {% endfor %}
