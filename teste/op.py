@@ -113,4 +113,3 @@ def logout ():
 
 app.config["SECRET_KEY"] = "51726.0"
 app.run(debug= True)
-    

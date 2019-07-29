@@ -6,7 +6,7 @@
     <body>
         {% if session["usuario"] %}
         <a href= "/form_add_pessoa" >Incluir</a> 
-        <a href = "/logout"> logout </a>
+        <a href = "/logout"> logout </a>z
         {% else %} 
             <a href="/form_login">Logar</a> <br><br>
         {% endif %}
@@ -14,8 +14,8 @@
         {% for pessoa in lista : %}
         {{ pessoa.nome }} | {{ pessoa.rua }} | {{ pessoa.numero }}
         {% if session["usuario"] %}
-        <a href= "/excluir_pessoa?id={{ pessoa.id }}">Excluir</a>
-        <a href= "/form_editar?id={{ pessoa.id }}">Alterar</a><br> 
+        <a href= "/excluir_pessoa?id={{ pessoa.id }}">Cadastrar</a> <br>
+        <a href= "/form_editar?id={{ pessoa.id }}">Editar</a><br> 
         {% endif %}
         <br>
         {% endfor %}
