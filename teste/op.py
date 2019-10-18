@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 app = Flask (__name__)
 from peewee import *
 
-db = SqliteDatabase ('./Prog-II/teste/lista_pessoa.db')
+db = SqliteDatabase ('lista_pessoa.db')
 
 class Pessoa (Model):
 
@@ -11,10 +11,8 @@ class Pessoa (Model):
     telefone = CharField ()
     cpf = CharField ()
 
-    class Meta : 
+    class Meta: 
         database = db
-
-lista = []
 
 try :
 

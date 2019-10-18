@@ -24,4 +24,25 @@
             <input  type = "submit" value = editar_dados>
         </form>
     </body>
+
+    <script>
+        
+        $ ('#conteúdo').text("Olá, este conteúdo foi inserido por javascript")
+        $ ('#alterar ').click (function(){
+
+        var digitando = $ ("#novo").val ();
+
+        $('#conteudo').text(digitando);
+
+        });
+
+        $('#mickey').click(function(){
+
+        $(this).fadeOut (2500);
+        $('#linha2').fadeOut(2500)
+
+        })
+
+    </script>
+
 </html>
