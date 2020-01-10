@@ -1,113 +1,56 @@
-from flask import Flask, render_template, request, redirect, session
-app = Flask (__name__)
-from peewee import *
+from flask import Flask, render_template, request, redirect
+from jinja2 import *
+from questao import Questao
+from listas_questoes import listas
 
-db = SqliteDatabase ('lista_pessoa.db')
+app= Flask(__name__)
 
-class Pessoa (Model):
-
-    nome = CharField ()
-    endereco = CharField ()
-    telefone = CharField ()
-    cpf = CharField ()
-
-    class Meta: 
-        database = db
-
-try :
-
-    db.connect()
-    db.create_tables ([Pessoa])
+user = {'questoes_corretas':[]}
 
 
-except OperationalError as error :
+@app.route("/menu")
+def menu():
+    return render_template("MENU.html")
 
-    print ("erro ao criar tabelas: " +str(error))
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/atividades")
+def atividade():
+    return render_template("atividades.html", range_len_listas=range(len(listas)))
+
+@app.route("/realizar_atividade")
+def realizar_atividade():
+    questao_id = request.args.get('questao_id')
+    lista_id = int(request.args.get('lista_id'))
+    if questao_id==None:
+        user['questoes_corretas']=[]
+        return render_template("realizar_atividade.html", questao=listas[lista_id][0], lista_id=lista_id)
+    else:
+        questao_id = int(questao_id)
+        q = listas[lista_id][questao_id]
+        a = request.args.get('alternativa')
+        if a==q.resposta:
+            user['questoes_corretas'].append(q)
+        if questao_id==len(listas[lista_id])-1:
+            print(user['questoes_corretas'])
+            return render_template("atividade_realizada.html", questoes_corretas=user['questoes_corretas'], lista_id=lista_id, lista=listas[lista_id])
+        else:
+            return render_template("realizar_atividade.html", questao=listas[lista_id][questao_id+1],lista_id=lista_id)
+
+@app.route("/conteudo")
+def conteudo():
+    pagina = request.args.get("pagina")
+    if pagina==None:
+        return render_template("conteudo.html")
+    return render_template("{}.html".format(pagina))
+
+@app.route("/mais")
+def mais():
+    return render_template("mais.html")
 
 
-@app.route ("/")
-def listar_pessoa ():
- 
-    return render_template ("inicio.html" , lista = Pessoa.select())
-
-@app.route ("/add_pessoa")
-def add ():
-
-    nome = request.args.get("nome") 
-    endereco = request.args.get ("endereco")
-    telefone = request.args.get ("telefone")
-    cpf = request.args.get ("cpf")
-    nova_pessoa = Pessoa.create (nome = nome, endereco = endereco, telefone = telefone, cpf = cpf)
-    r = "os dados recebidos foram"
-    r += nome + "," + endereco + "," + telefone
-    return redirect ("/")
-    return redirect ("/")
-
-@app.route ("/excluir_pessoa")
-def excluir ():
-
-    id = request.args.get ("id")
-    Pessoa.delete_by_id (id)
-
-    return redirect("/")
 
 
-@app.route ("/form_add_pessoa")
-def form ():
-
-    return render_template ("add_pessoa.html")
-
-@app.route ("/danesse")
-def tralar ():
-
-    return render_template ("danesse.html", pessoas = lista)
-
-@app.route ("/form_editar") 
-def editar_form ():
-
-    id = request.args.get ('id')
-    pessoa_a_ser_alterada = Pessoa.get_by_id (id)
-    return render_template ("editar.html", person = pessoa_a_ser_alterada)
-    
-@app.route ("/editar")            
-def editar_pessoa ():
-
-    id = request.args.get ("id")
-    nome = request.args.get ("nome")
-    endereco = request.args.get ("endereco")
-    telefone = request.args.get ("telefone")
-    cpf = request.args.get ("cpf")
-    pessoa_alterada = Pessoa.get_by_id (id)
-    pessoa_alterada.nome = nome
-    pessoa_alterada.endereco = endereco
-    pessoa_alterada.telefone = telefone
-    pessoa_alterada.cpf = cpf
-    pessoa_alterada.save()
-    return redirect ("/")
-
-@app.route ("/form_login")
-def form_login ():
-    
-    return render_template ("form_login.html")
-
-@app.route ("/login", methods = ["POST"])
-def login ():
-
-    login = request.form ["login"]
-    senha = request.form ["senha"]
-
-    if login and senha:
-        session["usuario"] = login
-        return redirect ("/")
-
-    else :
-        return "login ou senha inválidos"
-
-@app.route ("/logout")
-def logout ():
-
-    session.pop ("usuario")
-    return redirect ("/")
-
-app.config["SECRET_KEY"] = "51726.0"
-app.run(debug= True)
+app.run(host="127.0.0.1")
