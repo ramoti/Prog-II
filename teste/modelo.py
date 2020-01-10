@@ -1,24 +1,7 @@
-from peewee import *
-
-db = SqliteDatabase ('./lista_pessoa.db')
-
-class Pessoa (Model):
-
-    nome = CharField ()
-    endereco = CharField ()
-    telefone = CharField ()
-    cpf = CharField ()
-
-    class Meta: 
-        database = db
-
-try:
-    db.connect()
-    db.create_tables ([Pessoa])
-
-except OperationalError as error :
-
-    print ("erro ao criar tabelas: " +str(error))
-
-for p in Pessoa.select():
-    print(p.nome)
+class Questao():
+    def __init__(self, id, pergunta, img_src, alternativas, resposta):
+        self.id = id
+        self.pergunta = pergunta
+        self.img_src = img_src
+        self.alternativas = alternativas
+        self.resposta = resposta
