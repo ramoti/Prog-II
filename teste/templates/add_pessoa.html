@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang = "pt-br">
+    <head>
+        <link rel="stylesheet" type="text/css" href="static/arquivo.css">
+        <title> Incluir </title>
+        <style>
+            form {border: 1px solid #000}
+            form {padding: 7px;}
+            input {
+                
+            }
+        </style>
+        <meta charset="utf-8">
+        <meta name = "description" content=" Pégina de gerenciamento de pessoas">
+        <meta name="keywords" content="nome, cpf">
+        <meta name="author" content="Gabriel Ramos">     
+        <meta http-equiv="refresh" content="300">
+    </head>
+    <body>
+        <legend> Incluir </legend>
+        <form action="/add_pessoa" enctype="multipart/form-data" method="POST">
+            <fieldset>
+                <p>nome:  <input type="text" name = nome  required autofocus  placeholder="Gabriel Ramos de Amorim" autocomplete="on"></p> <br>
+                <p>endereco: <input type = textarea name = endereco required placeholder="Rua Araçaí 40"> </input type = textarea></p> <br>
+                <p>telefone: <input type="text" name = telefone required placeholder="(47) 3382-2896"></p> <br>
+                <p>email : <input type ="email" name = email required placeholder="gabrielramoti@gmail.com" autocomplete="on"></p>
+                <img style="width: 150px; height: 150px; margin-left: 60%;">                
+                <p>Sexo <style = 'text-align':></style> <br>
+                <input type="radio" name = sexo value = " Masculino"required> Masculino <br>
+                <input type="radio" name = sexo value = "Femenino" required> Feminino 
+                <br>
+                <input type="file" name="imagem" id="imagem" onchange="previewImagem()" style="margin-left: 60%; margin-top: 1%;" > <br><br>
+                <br><br>
+                cpf : <input type="text" name = cpf required placeholder="063.433.359-35">
+                <input type="submit" value="Cadastrar">
+
+                
+            </fieldset>
+        </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<script>
+			function previewImagem(){
+				var imagem = document.querySelector('input[name=imagem]').files[0];
+				var preview = document.querySelector('imagem');
+				
+				var reader = new FileReader();
+				
+				reader.onloadend = function () {
+					preview.src = reader.result;
+				}
+				
+				if(imagem){
+					reader.readAsDataURL(imagem);
+				}else{
+					preview.src = "";
+				}
+			}
+		</script>
+    </body>
+
+</html>
