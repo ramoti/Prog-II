@@ -1,7 +1,32 @@
-class Questao():
-    def __init__(self, id, pergunta, img_src, alternativas, resposta):
-        self.id = id
-        self.pergunta = pergunta
-        self.img_src = img_src
-        self.alternativas = alternativas
-        self.resposta = resposta
+from peewee import *
+
+db = SqliteDatabase ('lista_pessoa.db')
+
+
+class Pessoa (Model):
+
+    nome = CharField ()
+    endereco = CharField ()
+    telefone = CharField ()
+    email = CharField ()
+    cpf = CharField ()
+    ###foto = FileField ('imagem', validators = [FileRequired (), 
+                                             ###FileAllowed (['jpg', 'png' , 'jpeg'])])
+
+    class Meta: 
+        database = db
+
+
+class Config :
+    SQLALCHEMY_DATABASE_URI = 'sqlite:gravar'
+    upload_folder = '/Documentos/GitHub/Prog-II/teste/static/upload'
+
+try :
+
+    db.connect()
+    db.create_tables ([Pessoa])
+
+
+except OperationalError as error :
+
+    print ("erro ao criar tabelas: " +str(error))

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = "pt-br">
+
+    <head>
+
+        <link rel="stylesheet" type="text/css" href="static/arquivo.css">
+        <title> PESSOA ENCONTRADA </title>
+
+    </head>
+
+    <body>
+
+        {% for pessoa in lista : %}
+        {% if pessoa.nome == nome : %}
+        {{pessoa.nome}} <br>
+        {{pessoa.endereco}} <br>
+        {{pessoa.telefone}} <br>
+        {{pessoa.email}} <br>
+        {{pessoa.cpf}}<br>
+        {% endif %}
+        {% endfor %}
+
+    </body>
+
+</html>

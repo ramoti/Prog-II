@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang = "pt-br">
     <head>
-        <title>
-            editar
-        </title>
+        <link rel="stylesheet" type="text/css" href="static/arquivo.css">
+        <title>editar</title>
     </head>
 
     <body>
        
         <form action="/editar">
-            
-            <input type = "hidden" name = 'id' value = '{{person.id}}'>
-            nome : <input type = "text" name = nome value = '{{person.nome}}'>
-            endereco : <input type = "text" name = "endereco" value = "{{person.endereco}}">
-            telefone : <input type = "text" name = "telefone" value = "{{person.telefone}}">
-            cpf : <input type = "text" name = cpf value = {{person.cpf}}>
+            <h1> CADASTRO DE PESSOA</h1>
+            <input type = "hidden" name = 'id' value = '{{pessoa.id}}'> 
+            nome : <input type = "text" name = nome value = '{{pessoa.nome}}' autocomplete="on"><br>
+            endereco : <input type = "text" name = "endereco" value = "{{pessoa.endereco}}"><br>
+            telefone : <input type = "text" name = "telefone" value = "{{pessoa.telefone}}"><br>
+            email : <input type = "email" name = email value = "{{pessoa.email}}"autocomplete="on"> <br>
+            cpf : <input type = "text" name = cpf value = {{pessoa.cpf}}><br>
+            <br>
             <input type="submit" value = "confimar">         
 
         </form>
