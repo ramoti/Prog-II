@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang = "pt-br">
     <head>
-        <title >HOME </title >
+        <link rel="stylesheet" type="text/css" href="static/arquivo.css">
+        <title >Início </title >
         </head>
     <body>
         {% if session["usuario"] %}
-        <a href= "/form_add_pessoa" >Incluir</a> 
-        <a href = "/logout"> logout </a>z
+            <a href= "/form_add_pessoa" >Incluir</a> 
+            <a href = "/logout"> logout </a>
         {% else %} 
             <a href="/form_login">Logar</a> <br><br>
         {% endif %}
-
-        {% for pessoa in lista : %}
-        {{ pessoa.nome }} | {{ pessoa.rua }} | {{ pessoa.numero }}
-        {% if session["usuario"] %}
-        <a href= "/excluir_pessoa?id={{ pessoa.id }}">Cadastrar</a> <br>
-        <a href= "/form_editar?id={{ pessoa.id }}">Editar</a><br> 
-        {% endif %}
         <br>
-        {% endfor %}
-
+        <ul></ul>
+            {% for pessoa in lista : %}
+            <li>{{ pessoa.nome }} 
+            {% if session["usuario"] %}
+            <a href= "/excluir_pessoa?id={{ pessoa.id }}">Remover</a> | <a href= "/form_editar?id={{ pessoa.id }}">Editar</a><br> 
+            {% endif %}
+            <br>
+            {% endfor %}
+        </ul>    
+        <form action="buscar">
+            buscar por nome: <input type="search" name = nome placeholder="Digite o nome">
+            <input type="submit" value = "procurar">
+        </form>
  </body>
  </html>
